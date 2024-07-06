@@ -14,7 +14,7 @@
 
   &__content {
     background-color: white;
-    width: 260px;
+    width: 360px;
     padding: 2rem;
     margin: 2rem;
     position: absolute;
@@ -23,6 +23,7 @@
 
     @include mixins.md {
       position: relative;
+      width: 260px;
       top: 2rem;
       right: 0;
       margin: 0 auto;

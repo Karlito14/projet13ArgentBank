@@ -1,7 +1,6 @@
 import style from './banner.module.scss';
 
 export const Banner = (props: {image : string}) => {
-  
   return (
     <div className={style.container} style={{backgroundImage: `url(${props.image})`}}>
       <section className={style.container__content}>

@@ -1,0 +1,9 @@
+@use '../../assets/styles/mixins';
+
+.container {
+  display: flex;
+
+  @include mixins.md {
+    flex-direction: column;
+  }
+}

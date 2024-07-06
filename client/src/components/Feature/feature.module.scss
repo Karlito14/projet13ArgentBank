@@ -1,0 +1,20 @@
+@use '../../assets/styles/variables';
+
+.container {
+  flex: 1;
+  padding: 2.5rem;
+  text-align: center;
+
+  &__image {
+    width: 150px;
+    border-radius: 50%;
+    border: 10px solid variables.$color-green;
+    padding: 1rem;
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    margin: 1rem 0 0.5rem;
+    color: #222;
+  }
+}
