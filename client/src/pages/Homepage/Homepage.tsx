@@ -1,3 +1,6 @@
+import { Banner } from '../../components/Banner/Banner';
+import background from '../../assets/img/bank-tree.jpeg';
+
 export const Homepage = () => {
-    return <h2>HomePage</h2>
-}
+  return <Banner image={background} />;
+};

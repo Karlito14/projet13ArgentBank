@@ -6,10 +6,13 @@ import { Link } from 'react-router-dom';
 export const Header = () => {
   return (
     <header className={style.header}>
-      <img src={logo} alt="Logo Argent Bank" className={style.header__logo} />
+      <Link to={'/'}>
+        <img src={logo} alt="Logo Argent Bank" className={style.header__logo} />
+      </Link>
       <div className={style.header__action}>
-        <FaCircleUser className={style.header__action__icon} />
-        <Link to={'/signin'} className={style.header__action__link}>Sign In</Link>
+        <Link to={'/signin'} className={style.header__action__link}>
+          <FaCircleUser className={style.header__action__link__icon} />Sign In
+        </Link>
       </div>
     </header>
   );
