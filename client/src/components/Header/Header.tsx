@@ -10,7 +10,7 @@ export const Header = () => {
         <img src={logo} alt="Logo Argent Bank" className={style.header__logo} />
       </Link>
       <div className={style.header__action}>
-        <Link to={'/signin'} className={style.header__action__link}>
+        <Link to={'/login'} className={style.header__action__link}>
           <FaCircleUser className={style.header__action__link__icon} />Sign In
         </Link>
       </div>
