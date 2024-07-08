@@ -2,6 +2,7 @@
 
 .container {
   display: flex;
+  background-color: white;
 
   @include mixins.md {
     flex-direction: column;

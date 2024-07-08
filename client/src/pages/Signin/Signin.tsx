@@ -1,3 +1,7 @@
+import { FormSignin } from "../../components/FormSignin/FormSignin"
+
 export const Signin = () => {
-    return <h2>Signin</h2>
+    return (
+        <FormSignin />
+    )
 }
