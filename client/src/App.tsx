@@ -5,9 +5,9 @@ import { Footer } from './components/Footer/Footer';
 
 function App() {
   return (
-    <div className='container'>
+    <div className="container">
       <Header />
-      <main className='main'>
+      <main className="main">
         <Outlet />
       </main>
       <Footer />

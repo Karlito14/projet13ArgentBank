@@ -3,11 +3,17 @@ import App from './App';
 import { Homepage } from './pages/Homepage/Homepage';
 import { Signin } from './pages/Signin/Signin';
 import { User } from './pages/User/User';
+import { store } from './store/store';
+import { Provider } from 'react-redux';
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: (
+      <Provider store={store}>
+        <App />
+      </Provider>
+    ),
     children: [
       {
         path: '/',

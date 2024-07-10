@@ -5,6 +5,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { FormInputs } from '../../types/types';
 import { user } from '../../api/api_user';
+import { useDispatch } from 'react-redux';
+import { saveToken } from '../../store/token-slice';
 
 const schema = yup.object({
   email: yup
@@ -16,6 +18,8 @@ const schema = yup.object({
 });
 
 export const FormSignin = () => {
+  const dispatch = useDispatch();
+
   const defaultValues = {
     email: '',
     password: '',
@@ -41,6 +45,7 @@ export const FormSignin = () => {
         const result = await response.json();
         const token = result.body.token;
         console.log(token)
+        dispatch(saveToken(token))
       } else {
         setError('generic', {
           type: 'generic',
@@ -96,7 +101,7 @@ export const FormSignin = () => {
         {errors.generic && (
           <p className={style.error}>{errors.generic.message}</p>
         )}
-        <button className={style.button} disabled={isSubmitting}>
+        <button type='submit' className={style.button} disabled={isSubmitting}>
           Sign In
         </button>
       </form>
