@@ -4,9 +4,22 @@ export interface Feature {
   text: string;
 }
 
-export type FormInputs = {
+export interface FormInputs {
   email: string;
   password: string;
   remember?: boolean;
   generic?: string;
-};
+}
+
+export interface TokenState {
+  value: string;
+}
+
+export interface UserState {
+  email: string;
+  firstName: string;
+  lastName: string;
+  createdAt: string;
+  updatedAt: string;
+  id: string;
+}
