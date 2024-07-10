@@ -1,40 +1,47 @@
-import { useState } from 'react';
 import style from './formSignin.module.scss';
 import { FaCircleUser } from 'react-icons/fa6';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { FormInputs } from '../../types/types';
+import { user } from '../../api/api_user';
+
+const schema = yup.object({
+  email: yup
+    .string()
+    .email('Please enter a valid email address')
+    .required('Please enter an email address'),
+  password: yup.string().required('Please enter your password'),
+  remember: yup.boolean(),
+});
 
 export const FormSignin = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [remember, setRemember] = useState(false);
-
-  const [errorUsername, setErrorUsername] = useState('');
-  const [errorPassword, setErrorPassword] = useState('');
-
-  const handleInputUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value);
+  const defaultValues = {
+    email: '',
+    password: '',
+    remember: false,
   };
 
-  const handleChangeRemember = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRemember(event.target.checked);
-  };
+  const {
+    register,
+    handleSubmit,
+    clearErrors,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm<FormInputs>({
+    resolver: yupResolver(schema),
+    defaultValues: defaultValues,
+  });
 
-  const handleInputPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const regex = /^[a-zA-Z0-9]+$/;
-    if (!regex.test(username)) {
-      setErrorUsername('Only characters A-Z, a-z and 0-9 are acceptable.');
-    } else {
-      setErrorUsername('');
-    }
-
-    if (!regex.test(password)) {
-      setErrorPassword('Only characters A-Z, a-z and 0-9 are acceptable.');
-    } else {
-      setErrorPassword('');
+  const onSubmit: SubmitHandler<FormInputs> = async (data) => {
+    clearErrors();
+    try {
+      const response = await user.login(data);
+      if (!response.ok) {
+        setError('generic', { type: 'generic', message: 'invalid email or password' });
+      }
+    } catch (error) {
+      setError('generic', { type: 'generic', message: 'invalid email or password' });
     }
   };
 
@@ -42,44 +49,44 @@ export const FormSignin = () => {
     <section className={style.container}>
       <FaCircleUser />
       <h2 className={style.container__title}>Sign In</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className={style.wrapper}>
-          <label htmlFor="username">Username</label>
+          <label htmlFor="email">Email</label>
           <input
-            onInput={handleInputUsername}
-            type="text"
-            name="username"
-            id="username"
-            defaultValue={username}
+            type="email"
+            id="email"
+            defaultValue={defaultValues.email}
+            {...register('email')}
           />
-          {errorUsername && (
-            <p className={style.wrapper__error}>{errorUsername}</p>
+          {errors.email && (
+            <p className={style.error}>{errors.email.message}</p>
           )}
         </div>
         <div className={style.wrapper}>
           <label htmlFor="password">Password</label>
           <input
-            onInput={handleInputPassword}
             type="password"
-            name="password"
             id="password"
-            defaultValue={password}
+            defaultValue={defaultValues.password}
+            {...register('password')}
           />
-          {errorPassword && (
-            <p className={style.wrapper__error}>{errorPassword}</p>
+          {errors.password && (
+            <p className={style.error}>{errors.password.message}</p>
           )}
         </div>
         <div className={style.remember}>
           <input
             type="checkbox"
-            name="remember"
             id="remember"
-            checked={remember}
-            onChange={handleChangeRemember}
+            checked={defaultValues.remember}
+            {...register('remember')}
           />
           <label htmlFor="remember">Remember me</label>
         </div>
-        <button className={style.button}>Sign In</button>
+        {errors.generic && <p className={style.error}>{errors.generic.message}</p>}
+        <button className={style.button} disabled={isSubmitting}>
+          Sign In
+        </button>
       </form>
     </section>
   );
