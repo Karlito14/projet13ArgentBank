@@ -6,15 +6,26 @@ class ApiUser {
   constructor(url: string) {
     this.url = url;
   }
-  
+
   async login(data: FormInputs) {
-    const response = await fetch(this.url, {
+    const response = await fetch(`${this.url}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
-    return response
+    return response;
+  }
+
+  async getUser(token: string) {
+    const response = await fetch(`${this.url}/profile`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    return response;
   }
 }
 
-export const user = new ApiUser('http://localhost:3001/api/v1/user/login');
+export const userApi = new ApiUser('http://localhost:3001/api/v1/user');
