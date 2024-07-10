@@ -5,6 +5,7 @@ import { Signin } from './pages/Signin/Signin';
 import { User } from './pages/User/User';
 import { store } from './store/store';
 import { Provider } from 'react-redux';
+import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
 
 export const router = createBrowserRouter([
   {
@@ -25,7 +26,11 @@ export const router = createBrowserRouter([
       },
       {
         path: '/profile',
-        element: <User />,
+        element: (
+          <ProtectedRoute>
+            <User />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

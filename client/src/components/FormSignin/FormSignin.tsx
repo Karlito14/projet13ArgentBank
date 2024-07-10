@@ -4,9 +4,10 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { FormInputs } from '../../types/types';
-import { user } from '../../api/api_user';
+import { userApi } from '../../api/api_user';
 import { useDispatch } from 'react-redux';
 import { saveToken } from '../../store/token-slice';
+import { useNavigate } from 'react-router-dom';
 
 const schema = yup.object({
   email: yup
@@ -19,6 +20,7 @@ const schema = yup.object({
 
 export const FormSignin = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const defaultValues = {
     email: '',
@@ -40,12 +42,13 @@ export const FormSignin = () => {
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     clearErrors();
     try {
-      const response = await user.login(data);
+      const response = await userApi.login(data);
       if (response.ok) {
-        const result = await response.json();
-        const token = result.body.token;
-        console.log(token)
-        dispatch(saveToken(token))
+        const resultToken = await response.json();
+        const token = resultToken.body.token;
+        console.log(token);
+        dispatch(saveToken(token));
+        navigate('/profile');
       } else {
         setError('generic', {
           type: 'generic',
@@ -101,7 +104,7 @@ export const FormSignin = () => {
         {errors.generic && (
           <p className={style.error}>{errors.generic.message}</p>
         )}
-        <button type='submit' className={style.button} disabled={isSubmitting}>
+        <button type="submit" className={style.button} disabled={isSubmitting}>
           Sign In
         </button>
       </form>
