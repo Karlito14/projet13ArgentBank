@@ -37,11 +37,21 @@ export const FormSignin = () => {
     clearErrors();
     try {
       const response = await user.login(data);
-      if (!response.ok) {
-        setError('generic', { type: 'generic', message: 'invalid email or password' });
+      if (response.ok) {
+        const result = await response.json();
+        const token = result.body.token;
+        console.log(token)
+      } else {
+        setError('generic', {
+          type: 'generic',
+          message: 'Invalid email / password',
+        });
       }
     } catch (error) {
-      setError('generic', { type: 'generic', message: 'invalid email or password' });
+      setError('generic', {
+        type: 'generic',
+        message: 'Invalid email / password',
+      });
     }
   };
 
@@ -83,7 +93,9 @@ export const FormSignin = () => {
           />
           <label htmlFor="remember">Remember me</label>
         </div>
-        {errors.generic && <p className={style.error}>{errors.generic.message}</p>}
+        {errors.generic && (
+          <p className={style.error}>{errors.generic.message}</p>
+        )}
         <button className={style.button} disabled={isSubmitting}>
           Sign In
         </button>
