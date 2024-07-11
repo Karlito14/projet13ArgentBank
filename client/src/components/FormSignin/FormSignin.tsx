@@ -43,10 +43,8 @@ export const FormSignin = () => {
     clearErrors();
     try {
       const response = await userApi.login(data);
-      if (response.ok) {
-        const resultToken = await response.json();
-        const token = resultToken.body.token;
-        console.log(token);
+      if (response.status === 200) {
+        const token = response.body.token;
         dispatch(saveToken(token));
         navigate('/profile');
       } else {

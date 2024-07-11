@@ -4,6 +4,7 @@ import { UserState } from '../../types/types';
 import { useEffect, useState } from 'react';
 import { userApi } from '../../api/api_user';
 import { login } from '../../store/auth-slice';
+import { Welcome } from '../../components/Welcome/Welcome';
 
 export const User = () => {
   const token = useSelector((state: RootState) => state.token.value);
@@ -13,19 +14,18 @@ export const User = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const response = await userApi.getUser(token);
-        if (response.ok) {
-          const result = await response.json();
-          setUser(result.body);
-          dispatch(login(result.body));
+        const data = await userApi.getUser(token);
+        if (data.status === 200) {
+          setUser(data.body);
+          dispatch(login(data.body));
         }
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     };
 
     getUser();
   }, [dispatch, token]);
 
-  return <h1 style={{color: 'white'}}>User</h1>;
+  return <>{user && <Welcome />}</>;
 };
