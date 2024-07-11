@@ -13,7 +13,12 @@ class ApiUser {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
-    return response;
+
+    if (response.ok) {
+      return await response.json();
+    } else {
+      throw new Error('error login');
+    }
   }
 
   async getUser(token: string) {
@@ -21,10 +26,14 @@ class ApiUser {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
-    return response;
+    if (response.ok) {
+      return await response.json();
+    } else {
+      throw new Error('error user');
+    }
   }
 }
 
