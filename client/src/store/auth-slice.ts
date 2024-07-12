@@ -7,7 +7,7 @@ const initialStateToken: TokenState = {
 };
 
 export const authSlice = createSlice({
-  name: 'tokenSlice',
+  name: 'authSlice',
   initialState: initialStateToken,
   reducers: {
     saveToken: (state, action: PayloadAction<string>) => {

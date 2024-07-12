@@ -6,6 +6,7 @@ import { User } from './pages/User/User';
 import { store } from './store/store';
 import { Provider } from 'react-redux';
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
+import { Signup } from './pages/Signup/Signup';
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
       {
         path: '/login',
         element: <Signin />,
+      },
+      {
+        path: '/signup',
+        element: <Signup />,
       },
       {
         path: '/profile',
