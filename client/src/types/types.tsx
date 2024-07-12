@@ -4,10 +4,18 @@ export interface Feature {
   text: string;
 }
 
-export interface FormInputs {
+export interface FormInputsSignin {
   email: string;
   password: string;
   remember?: boolean;
+  generic?: string;
+}
+
+export interface FormInputsSignup {
+  email: string;
+  firstname: string;
+  lastname: string;
+  password: string;
   generic?: string;
 }
 

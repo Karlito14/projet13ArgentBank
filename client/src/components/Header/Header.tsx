@@ -2,6 +2,7 @@ import style from './header.module.scss';
 import logo from '../../assets/img/argentBankLogo.png';
 import { FaCircleUser } from 'react-icons/fa6';
 import { FaSignOutAlt } from 'react-icons/fa';
+import { AiOutlineUserAdd } from "react-icons/ai";
 import { Link, useNavigate } from 'react-router-dom';
 import { RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,10 +38,16 @@ export const Header = () => {
             </p>
           </>
         ) : (
-          <Link to={'/login'} className={style.header__action__login}>
-            <FaCircleUser className={style.header__action__login__icon} />
-            Sign In
-          </Link>
+          <>
+            <Link to={'/signup'} className={style.header__action__login}>
+              <AiOutlineUserAdd className={style.header__action__login__icon} />
+              Sign Up
+            </Link>
+            <Link to={'/login'} className={style.header__action__login}>
+              <FaCircleUser className={style.header__action__login__icon} />
+              Sign In
+            </Link>
+          </>
         )}
       </div>
     </header>

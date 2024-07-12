@@ -1,12 +1,10 @@
-import style from './formSignin.module.scss';
-import { FaCircleUser } from 'react-icons/fa6';
+import style from './formSignup.module.scss';
+import { AiOutlineUserAdd } from 'react-icons/ai';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { FormInputsSignin } from '../../types/types';
+import { FormInputsSignup } from '../../types/types';
 import { userApi } from '../../api/api_user';
-import { useDispatch } from 'react-redux';
-import { saveToken } from '../../store/auth-slice';
 import { useNavigate } from 'react-router-dom';
 
 const schema = yup.object({
@@ -14,57 +12,48 @@ const schema = yup.object({
     .string()
     .email('Please enter a valid email address')
     .required('Please enter an email address'),
-  password: yup.string().required('Please enter your password'),
+  firstname: yup.string().required('Please enter your first name').min(3),
+  lastname: yup.string().required('Please enter your last name').min(3),
+  password: yup.string().required('Please enter a password').min(5),
   remember: yup.boolean(),
 });
 
-export const FormSignin = () => {
-  const dispatch = useDispatch();
+export const FormSignup = () => {
   const navigate = useNavigate();
-
   const defaultValues = {
     email: '',
+    firstname: '',
+    lastname: '',
     password: '',
-    remember: false,
   };
 
   const {
     register,
     handleSubmit,
     clearErrors,
-    setError,
     formState: { errors, isSubmitting },
-  } = useForm<FormInputsSignin>({
+  } = useForm<FormInputsSignup>({
     resolver: yupResolver(schema),
     defaultValues: defaultValues,
   });
 
-  const onSubmit: SubmitHandler<FormInputsSignin> = async (data) => {
+  const onSubmit: SubmitHandler<FormInputsSignup> = async (data) => {
     clearErrors();
     try {
-      const response = await userApi.login(data);
+      const response = await userApi.signup(data);
+      console.log(response);
       if (response.status === 200) {
-        const token = response.body.token;
-        dispatch(saveToken(token));
-        navigate('/profile');
-      } else {
-        setError('generic', {
-          type: 'generic',
-          message: 'Invalid email / password',
-        });
+        navigate('/login')
       }
     } catch (error) {
-      setError('generic', {
-        type: 'generic',
-        message: 'Invalid email / password',
-      });
+      console.error(error);
     }
   };
 
   return (
     <section className={style.container}>
-      <FaCircleUser />
-      <h2 className={style.container__title}>Sign In</h2>
+      <AiOutlineUserAdd />
+      <h2 className={style.container__title}>Sign Up</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={style.wrapper}>
           <label htmlFor="email">Email</label>
@@ -79,6 +68,30 @@ export const FormSignin = () => {
           )}
         </div>
         <div className={style.wrapper}>
+          <label htmlFor="firstname">Firstname</label>
+          <input
+            type="firstname"
+            id="firstname"
+            defaultValue={defaultValues.email}
+            {...register('firstname')}
+          />
+          {errors.firstname && (
+            <p className={style.error}>{errors.firstname.message}</p>
+          )}
+        </div>
+        <div className={style.wrapper}>
+          <label htmlFor="lastname">Lastname</label>
+          <input
+            type="lastname"
+            id="lastname"
+            defaultValue={defaultValues.email}
+            {...register('lastname')}
+          />
+          {errors.lastname && (
+            <p className={style.error}>{errors.lastname.message}</p>
+          )}
+        </div>
+        <div className={style.wrapper}>
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -90,20 +103,9 @@ export const FormSignin = () => {
             <p className={style.error}>{errors.password.message}</p>
           )}
         </div>
-        <div className={style.remember}>
-          <input
-            type="checkbox"
-            id="remember"
-            checked={defaultValues.remember}
-            {...register('remember')}
-          />
-          <label htmlFor="remember">Remember me</label>
-        </div>
-        {errors.generic && (
-          <p className={style.error}>{errors.generic.message}</p>
-        )}
+
         <button type="submit" className={style.button} disabled={isSubmitting}>
-          Sign In
+          Sign Up
         </button>
       </form>
     </section>

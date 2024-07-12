@@ -36,6 +36,10 @@
     &__login {
       display: flex;
       align-items: center;
+      
+      &:first-child {
+        margin-right: 15px;
+      }
 
       &__icon {
         margin-right: 5px;

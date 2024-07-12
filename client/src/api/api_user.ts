@@ -1,4 +1,4 @@
-import { FormInputs } from '../types/types';
+import { FormInputsSignin, FormInputsSignup } from '../types/types';
 
 const BASE_URL = 'http://localhost:3001/api/v1/user';
 
@@ -9,8 +9,22 @@ class ApiUser {
     this.url = url;
   }
 
-  async login(data: FormInputs) {
+  async login(data: FormInputsSignin) {
     const response = await fetch(`${this.url}/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      return await response.json();
+    } else {
+      throw new Error('error login');
+    }
+  }
+
+  async signup(data: FormInputsSignup) {
+    const response = await fetch(`${this.url}/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
