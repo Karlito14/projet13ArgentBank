@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import { FormInputs } from '../../types/types';
 import { userApi } from '../../api/api_user';
 import { useDispatch } from 'react-redux';
-import { saveToken } from '../../store/token-slice';
+import { saveToken } from '../../store/auth-slice';
 import { useNavigate } from 'react-router-dom';
 
 const schema = yup.object({
