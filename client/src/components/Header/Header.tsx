@@ -1,13 +1,23 @@
 import style from './header.module.scss';
 import logo from '../../assets/img/argentBankLogo.png';
 import { FaCircleUser } from 'react-icons/fa6';
-import { FaSignOutAlt } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { FaSignOutAlt } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
 import { RootState } from '../../store/store';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteToken } from '../../store/auth-slice';
+import { logout } from '../../store/user-slice';
 
 export const Header = () => {
-  const user = useSelector((state: RootState) => state.auth.initialStateUser);
+  const user = useSelector((state: RootState) => state.auth.stateUser);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const signOut = () => {
+    dispatch(deleteToken(''));
+    dispatch(logout());
+    navigate('/');
+  };
 
   return (
     <header className={style.header}>
@@ -21,10 +31,10 @@ export const Header = () => {
               <FaCircleUser className={style.header__action__link__icon} />
               {user.firstName}
             </Link>
-            <Link to={'/'} className={style.header__action__link}>
+            <p className={style.header__action__link} onClick={signOut}>
               <FaSignOutAlt className={style.header__action__link__icon} />
               Sign Out
-            </Link>
+            </p>
           </>
         ) : (
           <Link to={'/login'} className={style.header__action__login}>

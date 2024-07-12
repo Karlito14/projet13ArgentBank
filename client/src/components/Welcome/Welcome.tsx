@@ -3,7 +3,7 @@ import { RootState } from '../../store/store';
 import style from './welcome.module.scss';
 
 export const Welcome = () => {
-  const user = useSelector((state: RootState) => state.auth.initialStateUser);
+  const user = useSelector((state: RootState) => state.auth.stateUser);
 
   return (
     <div className={style.header}>

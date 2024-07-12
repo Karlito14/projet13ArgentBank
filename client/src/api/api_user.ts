@@ -1,5 +1,7 @@
 import { FormInputs } from '../types/types';
 
+const BASE_URL = 'http://localhost:3001/api/v1/user';
+
 class ApiUser {
   url: string;
 
@@ -37,4 +39,4 @@ class ApiUser {
   }
 }
 
-export const userApi = new ApiUser('http://localhost:3001/api/v1/user');
+export const userApi = new ApiUser(BASE_URL);

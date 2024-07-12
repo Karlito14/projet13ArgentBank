@@ -3,7 +3,7 @@ import { RootState } from '../../store/store';
 import { UserState } from '../../types/types';
 import { useEffect, useState } from 'react';
 import { userApi } from '../../api/api_user';
-import { login } from '../../store/auth-slice';
+import { login } from '../../store/user-slice';
 import { Welcome } from '../../components/Welcome/Welcome';
 
 export const User = () => {
