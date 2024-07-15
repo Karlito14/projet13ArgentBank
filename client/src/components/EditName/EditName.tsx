@@ -4,6 +4,7 @@ import style from './editName.module.scss';
 import { cancelEdit } from '../../store/editName-slice';
 import { useState } from 'react';
 import { userApi } from '../../api/api_user';
+import { updateUser } from '../../store/user-slice';
 
 export const EditName = () => {
   const user = useSelector((state: RootState) => state.user.stateUser);
@@ -22,6 +23,7 @@ export const EditName = () => {
     try {
       const response = await userApi.updateUser(updatedNames, token);
       if (response.status === 200) {
+        dispatch(updateUser(updatedNames));
         dispatch(cancelEdit());
       }
     } catch (error) {
