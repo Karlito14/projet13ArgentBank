@@ -4,8 +4,8 @@ const initialStateEdit = {
   value: false,
 };
 
-export const editNameSlice = createSlice({
-  name: 'editNameSlice',
+export const editProfileSlice = createSlice({
+  name: 'editProfileSlice',
   initialState: initialStateEdit,
   reducers: {
     edit: (state) => {
@@ -18,5 +18,5 @@ export const editNameSlice = createSlice({
   },
 });
 
-export const { edit, cancelEdit } = editNameSlice.actions;
-export default editNameSlice.reducer;
+export const { edit, cancelEdit } = editProfileSlice.actions;
+export default editProfileSlice.reducer;
