@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import style from './editName.module.scss';
-import { cancelEdit } from '../../store/editName-slice';
+import { cancelEdit } from '../../store/editProfile-slice';
 import { useState } from 'react';
 import { userApi } from '../../api/api_user';
 import { updateUser } from '../../store/user-slice';

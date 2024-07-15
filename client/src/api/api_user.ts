@@ -65,7 +65,7 @@ class ApiUser {
     if (response.ok) {
       return await response.json();
     } else {
-      throw new Error('error user');
+      throw new Error('error update user');
     }
   }
 }
