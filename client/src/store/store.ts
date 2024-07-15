@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import tokenSlice from './auth-slice';
-import authSlice from './user-slice';
+import userSlice from './user-slice';
+import editNameSlice from './editName-slice';
 
 export const store = configureStore({
   reducer: {
     token: tokenSlice,
-    auth: authSlice,
+    user: userSlice,
+    editName: editNameSlice,
   },
 });
 

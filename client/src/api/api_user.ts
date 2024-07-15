@@ -1,4 +1,4 @@
-import { FormInputsSignin, FormInputsSignup } from '../types/types';
+import { FormInputsSignin, FormInputsSignup, UpdateUser } from '../types/types';
 
 const BASE_URL = 'http://localhost:3001/api/v1/user';
 
@@ -45,6 +45,23 @@ class ApiUser {
         Authorization: `Bearer ${token}`,
       },
     });
+    if (response.ok) {
+      return await response.json();
+    } else {
+      throw new Error('error user');
+    }
+  }
+
+  async updateUser(user: UpdateUser, token: string) {
+    const response = await fetch(`${this.url}/profile`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(user),
+    });
+
     if (response.ok) {
       return await response.json();
     } else {
