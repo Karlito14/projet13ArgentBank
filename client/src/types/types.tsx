@@ -29,5 +29,10 @@ export interface UserState {
   lastName: string;
   createdAt: string;
   updatedAt: string;
-  id: string;
+  id?: string;
+}
+
+export interface UpdateUser {
+  firstName: string;
+  lastName: string;
 }

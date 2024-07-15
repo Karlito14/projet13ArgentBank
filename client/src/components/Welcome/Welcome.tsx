@@ -1,18 +1,32 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import style from './welcome.module.scss';
+import { edit } from '../../store/editName-slice';
+import { EditName } from '../EditName/EditName';
 
 export const Welcome = () => {
-  const user = useSelector((state: RootState) => state.auth.stateUser);
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user.stateUser);
+  const editName = useSelector((state: RootState) => state.editName.value);
+
+  console.log(editName);
+
+  const handleClick = () => {
+    dispatch(edit());
+  };
 
   return (
     <div className={style.header}>
       <h1 className={style.header__title}>
         Welcome back
         <br />
-        {user.firstName + ' ' + user.lastName}{' !'}
+        {!editName ? `${user.firstName} ${user.lastName} !` : <EditName />}
       </h1>
-      <button className={style.header__button}>Edit Name</button>
+      {!editName && (
+        <button className={style.header__button} onClick={handleClick}>
+          Edit Name
+        </button>
+      )}
     </div>
   );
 };

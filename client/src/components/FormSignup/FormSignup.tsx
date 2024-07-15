@@ -15,7 +15,6 @@ const schema = yup.object({
   firstname: yup.string().required('Please enter your first name').min(3),
   lastname: yup.string().required('Please enter your last name').min(3),
   password: yup.string().required('Please enter a password').min(5),
-  remember: yup.boolean(),
 });
 
 export const FormSignup = () => {
@@ -72,7 +71,7 @@ export const FormSignup = () => {
           <input
             type="firstname"
             id="firstname"
-            defaultValue={defaultValues.email}
+            defaultValue={defaultValues.firstname}
             {...register('firstname')}
           />
           {errors.firstname && (
@@ -84,7 +83,7 @@ export const FormSignup = () => {
           <input
             type="lastname"
             id="lastname"
-            defaultValue={defaultValues.email}
+            defaultValue={defaultValues.lastname}
             {...register('lastname')}
           />
           {errors.lastname && (
