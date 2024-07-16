@@ -7,7 +7,8 @@
     "contact": {
       "name": "Api Support",
       "email": "leiroz26@hotmail.com"
-    }
+    },
+    "termsOfService": "http://swagger.io/terms/"
   },
   "servers": [
     {
@@ -20,11 +21,16 @@
       "description": "Everything to do with banking transactions"
     }
   ],
+  "security": [
+    {
+      "Bearer": []
+    }
+  ],
   "paths": {
     "/transactions": {
       "get": {
         "tags": ["Transactions"],
-        "summary": "Retrieve all the user's transactions",
+        "summary": "Retrieves the user's transactions for the current month",
         "parameters": [
           {
             "in": "header",
@@ -65,14 +71,14 @@
         "parameters": [
           {
             "in": "header",
-            "name": "Authorization ",
+            "name": "Authorization",
             "type": "string",
             "required": true,
             "description": "Attach Bearer JWT token"
           },
           {
             "in": "path",
-            "name": "TransactionId ",
+            "name": "TransactionId",
             "type": "string",
             "required": true,
             "description": "Transaction ID"
@@ -81,7 +87,77 @@
         "operationId": "getTransaction",
         "responses": {
           "200": {
-            "description": "Returns a  transactions",
+            "description": "Returns a transaction",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transactions"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidFiels"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Transactions"],
+        "summary": "Modify a transaction",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description": "Attach Bearer JWT token"
+          },
+          {
+            "in": "path",
+            "name": "TransactionId",
+            "type": "string",
+            "required": true,
+            "description": "Transaction ID"
+          }
+        ],
+        "requestBody": {
+          "description": "Modify Transaction informations",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "notes": {
+                        "types": "string"
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "category": {
+                        "types": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "operationId": "modifyTransaction",
+        "responses": {
+          "200": {
+            "description": "Returns a transaction",
             "content": {
               "application/json": {
                 "schema": {
@@ -177,6 +253,13 @@
       "InvalidFiels": {
         "description": "Invalid Fields"
       }
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
     }
   }
 }
