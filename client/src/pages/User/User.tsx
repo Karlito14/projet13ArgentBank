@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { userApi } from '../../api/api_user';
 import { login } from '../../store/user-slice';
 import { Welcome } from '../../components/Welcome/Welcome';
+import { AccountList } from '../../components/AccountList/AccountList';
 
 export const User = () => {
   const token = useSelector((state: RootState) => state.token.value);
@@ -27,5 +28,10 @@ export const User = () => {
     getUser();
   }, [dispatch, token]);
 
-  return <>{user && <Welcome />}</>;
+  return (
+    <>
+      {user && <Welcome />}
+      {user && <AccountList />}
+    </>
+  );
 };
