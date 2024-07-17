@@ -6,6 +6,12 @@
   }
 }
 
+@mixin sm {
+  @media screen and (max-width: 720px) {
+    @content;
+  }
+}
+
 @mixin btn($padding) {
   font-weight: bold;
   background-color: variables.$color-green;

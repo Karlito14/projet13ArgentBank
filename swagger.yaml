@@ -22,8 +22,9 @@ paths:
       summary: Retrieves the user's transactions for the current month
       parameters:
         - in: header
-          name: 'Authorization '
-          type: string
+          name: Authorization
+          schema:
+            type: string
           required: true
           description: Attach Bearer JWT token
       operationId: getTransactions
@@ -35,7 +36,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ArrayOfTransactions'
         '400':
-          $ref: '#/components/responses/InvalidFiels'
+          $ref: '#/components/responses/InvalidFields'
         '401':
           $ref: '#/components/responses/UnauthorizedError'
         '500':
@@ -48,12 +49,14 @@ paths:
       parameters:
         - in: header
           name: Authorization
-          type: string
+          schema:
+            type: string
           required: true
           description: Attach Bearer JWT token
         - in: path
-          name: TransactionId
-          type: string
+          name: transactionId
+          schema:
+            type: string
           required: true
           description: Transaction ID
       operationId: getTransaction
@@ -65,7 +68,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Transactions'
         '400':
-          $ref: '#/components/responses/InvalidFiels'
+          $ref: '#/components/responses/InvalidFields'
         '401':
           $ref: '#/components/responses/UnauthorizedError'
         '500':
@@ -77,16 +80,18 @@ paths:
       parameters:
         - in: header
           name: Authorization
-          type: string
+          schema:
+            type: string
           required: true
           description: Attach Bearer JWT token
         - in: path
-          name: TransactionId
-          type: string
+          name: transactionId
+          schema:
+            type: string
           required: true
           description: Transaction ID
       requestBody:
-        description: Modify Transaction informations
+        description: Modify Transaction information
         required: true
         content:
           application/json:
@@ -95,11 +100,11 @@ paths:
                 - type: object
                   properties:
                     notes:
-                      types: string
+                      type: string
                 - type: object
                   properties:
                     category:
-                      types: string
+                      type: string
       operationId: modifyTransaction
       responses:
         '200':
@@ -109,7 +114,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Transactions'
         '400':
-          $ref: '#/components/responses/InvalidFiels'
+          $ref: '#/components/responses/InvalidFields'
         '401':
           $ref: '#/components/responses/UnauthorizedError'
         '500':
@@ -131,7 +136,7 @@ components:
           type: string
         notes:
           type: string
-        transaction type:
+        transactionType:
           type: string
       example:
         id: 1
@@ -140,35 +145,35 @@ components:
         amount: 5
         category: Food
         notes: ''
-        transaction type: electronic
+        transactionType: electronic
     ArrayOfTransactions:
       type: array
       items:
         $ref: '#/components/schemas/Transactions'
-      example:
+      examples:
         - id: 1
           date: 2024/05/28
           description: Golden Sun Bakery
           amount: 5
           category: Food
           notes: ''
-          transaction type: electronic
+          transactionType: electronic
         - id: 2
           date: 2024/05/29
           description: Golden Sun Bakery
           amount: 10
           category: Food
           notes: ''
-          transaction type: electronic
+          transactionType: electronic
   responses:
     UnauthorizedError:
       description: Access token is missing or invalid
     ServerError:
       description: Internal Server Error
-    InvalidFiels:
+    InvalidFields:
       description: Invalid Fields
 securityDefinitions:
   Bearer:
-    type: apiKey
-    name: Authorization
-    in: header
+    type: http
+    scheme: bearer
+    bearerFormat: JWT

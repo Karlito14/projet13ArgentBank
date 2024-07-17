@@ -36,3 +36,9 @@ export interface UpdateUser {
   firstName: string;
   lastName: string;
 }
+
+export interface AccountInterface {
+  account: string;
+  amount: number;
+  transactions: number;
+}
