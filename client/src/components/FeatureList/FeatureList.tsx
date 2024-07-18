@@ -26,7 +26,7 @@ export const FeaturesList = () => {
 
   return (
     <section className={style.container}>
-      {features.map((feature: Feature, index: number) => (
+      {features.map((feature: Readonly<Feature>, index: number) => (
         <FeatureItem feature={feature} key={index} />
       ))}
     </section>

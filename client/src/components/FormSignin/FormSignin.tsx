@@ -46,6 +46,7 @@ export const FormSignin = () => {
       if (response.status === 200) {
         const token = response.body.token;
         dispatch(saveToken(token));
+        localStorage.setItem('token', token);
         navigate('/profile');
       } else {
         setError('generic', {
