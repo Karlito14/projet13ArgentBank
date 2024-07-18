@@ -10,7 +10,7 @@ import { deleteToken } from '../../store/auth-slice';
 import { logout } from '../../store/user-slice';
 
 export const Header = () => {
-  const user = useSelector((state: RootState) => state.user.stateUser);
+  const user = useSelector((state: RootState) => state.user.stateUser) || JSON.parse(localStorage.getItem('user')!);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

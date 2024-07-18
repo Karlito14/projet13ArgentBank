@@ -15,7 +15,7 @@ tags:
 security:
   - Bearer: []
 paths:
-  /transactions:
+  /transactions/{accountID}:
     get:
       tags:
         - Transactions
@@ -27,6 +27,12 @@ paths:
             type: string
           required: true
           description: Attach Bearer JWT token
+        - in: path
+          name: accountID
+          schema:
+            type: string
+          required: true
+          description: Account ID
       operationId: getTransactions
       responses:
         '200':
@@ -150,7 +156,7 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Transactions'
-      examples:
+      example:
         - id: 1
           date: 2024/05/28
           description: Golden Sun Bakery

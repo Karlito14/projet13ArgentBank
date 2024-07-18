@@ -7,8 +7,8 @@ import { userApi } from '../../api/api_user';
 import { updateUser } from '../../store/user-slice';
 
 export const EditName = () => {
-  const user = useSelector((state: RootState) => state.user.stateUser);
-  const token = useSelector((state: RootState) => state.token.value);
+  const user = useSelector((state: RootState) => state.user.stateUser) || JSON.parse(localStorage.getItem('user')!);
+  const token = useSelector((state: RootState) => state.token.value) || localStorage.getItem('token');
 
   const dispatch = useDispatch();
   const [firstName, setFirstName] = useState(user.firstName);
@@ -21,9 +21,14 @@ export const EditName = () => {
     };
 
     try {
-      const response = await userApi.updateUser(updatedNames, token);
+      let response;
+      if(token) {
+        response = await userApi.updateUser(updatedNames, token);
+      }
+
       if (response.status === 200) {
         dispatch(updateUser(updatedNames));
+        localStorage.setItem('user', JSON.stringify({...user, ...updatedNames}))
         dispatch(cancelEdit());
       }
     } catch (error) {

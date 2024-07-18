@@ -8,7 +8,10 @@ import { Welcome } from '../../components/Welcome/Welcome';
 import { AccountList } from '../../components/AccountList/AccountList';
 
 export const User = () => {
-  const token = useSelector((state: RootState) => state.token.value);
+  const token =
+    useSelector((state: RootState) => state.token.value) ||
+    localStorage.getItem('token')!;
+
   const [user, setUser] = useState<UserState>();
   const dispatch = useDispatch();
 
@@ -19,6 +22,7 @@ export const User = () => {
         if (data.status === 200) {
           setUser(data.body);
           dispatch(login(data.body));
+          localStorage.setItem('user', JSON.stringify(data.body))
         }
       } catch (error) {
         console.error(error);

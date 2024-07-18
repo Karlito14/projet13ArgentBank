@@ -1,7 +1,7 @@
 import { AccountInterface } from '../../types/types';
 import style from './account.module.scss';
 
-export const Account = (props: { account: AccountInterface }) => {
+export const Account = (props: { account: Readonly<AccountInterface> }) => {
   return (
     <div className={style.container}>
       <div className={style.container__content}>
