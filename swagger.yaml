@@ -19,7 +19,7 @@ paths:
     get:
       tags:
         - Transactions
-      summary: Retrieves the user's transactions for the current month
+      summary: Return transactions from the bank account concerned
       parameters:
         - in: header
           name: Authorization
@@ -51,7 +51,7 @@ paths:
     get:
       tags:
         - Transactions
-      summary: Retrieve a user's transaction
+      summary: Return the relevant transaction
       parameters:
         - in: header
           name: Authorization

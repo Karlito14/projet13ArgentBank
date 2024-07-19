@@ -1,10 +1,10 @@
 import style from './banner.module.scss';
 
-export const Banner = (props: { image: string }) => {
+export const Banner = ({ image }: { image: string }) => {
   return (
     <div
       className={style.container}
-      style={{ backgroundImage: `url(${props.image})` }}
+      style={{ backgroundImage: `url(${image})` }}
     >
       <section className={style.container__content}>
         <p className={style.container__content__subtitle}>No fees.</p>

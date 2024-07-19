@@ -2,7 +2,7 @@ import style from './header.module.scss';
 import logo from '../../assets/img/argentBankLogo.png';
 import { FaCircleUser } from 'react-icons/fa6';
 import { FaSignOutAlt } from 'react-icons/fa';
-import { AiOutlineUserAdd } from "react-icons/ai";
+import { AiOutlineUserAdd } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
 import { RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,13 +10,15 @@ import { deleteToken } from '../../store/auth-slice';
 import { logout } from '../../store/user-slice';
 
 export const Header = () => {
-  const user = useSelector((state: RootState) => state.user.stateUser) || JSON.parse(localStorage.getItem('user')!);
+  const user = useSelector((state: RootState) => state.user.stateUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const signOut = () => {
     dispatch(deleteToken(''));
     dispatch(logout());
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     navigate('/');
   };
 
