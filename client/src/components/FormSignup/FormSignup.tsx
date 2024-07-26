@@ -40,7 +40,6 @@ export const FormSignup = () => {
     clearErrors();
     try {
       const response = await userApi.signup(data);
-      console.log(response);
       if (response.status === 200) {
         navigate('/login')
       }
