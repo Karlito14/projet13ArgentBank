@@ -15,7 +15,7 @@ tags:
 security:
   - Bearer: []
 paths:
-  /transactions/{accountID}:
+  /account/{accountID}:
     get:
       tags:
         - Transactions
@@ -47,7 +47,7 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         '500':
           $ref: '#/components/responses/ServerError'
-  /transactions/{transactionId}:
+  /transaction/{transactionId}:
     get:
       tags:
         - Transactions
