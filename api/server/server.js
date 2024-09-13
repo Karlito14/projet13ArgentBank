@@ -17,11 +17,12 @@ dbConnection();
 const corsOptions = {
   origin: ['http://127.0.0.1:4173/', 'https://argentbank-oc.netlify.app'],
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-  credentials: true, 
-}
+  credentials: true,
+};
 
 // Handle CORS issues
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // Request payload middleware
 app.use(express.json());
