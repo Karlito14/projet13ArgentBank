@@ -14,8 +14,13 @@ const PORT = process.env.PORT || 3001;
 // Connect to the database
 dbConnection();
 
+const corsOptions = {
+  origin: ['http://127.0.0.1', 'https://argentbank-oc.netlify.app'],
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
 // Handle CORS issues
-app.use(cors());
+app.use(cors(corsOptions));
 
 // Request payload middleware
 app.use(express.json());

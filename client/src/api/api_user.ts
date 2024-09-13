@@ -1,6 +1,6 @@
 import { FormInputsSignin, FormInputsSignup, UpdateUser } from '../types/types';
 
-const BASE_URL = 'http://localhost:3001/api/v1/user';
+const BASE_URL = 'https://projet13argentbank.onrender.com/';
 
 class ApiUser {
   url: string;
